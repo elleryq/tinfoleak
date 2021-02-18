@@ -9037,9 +9037,9 @@ if __name__ == "__main__":
         user_relations_ui = relations_window.Ui_Dialog()
         user_relations_ui.setupUi(user_relations_window)
         # Connect buttonBox
-        btn = user_relations_ui.buttonBox.button(QtGui.QDialogButtonBox.Apply)
+        btn = user_relations_ui.buttonBox.button(QtWidgets.QDialogButtonBox.Apply)
         btn.clicked.connect(getUserRelations)
-        btnClose = user_relations_ui.buttonBox.button(QtGui.QDialogButtonBox.Ok)
+        btnClose = user_relations_ui.buttonBox.button(QtWidgets.QDialogButtonBox.Ok)
         btnClose.clicked.connect(selectTargetFromUserRelations)
         # Connect checkbox : select all
         user_relations_ui.cb_all_user1.stateChanged.connect(
@@ -9065,14 +9065,14 @@ if __name__ == "__main__":
         )
 
         # Window to show user lists
-        user_lists_window = QtGui.QDialog(parent=window)
+        user_lists_window = QtWidgets.QDialog(parent=window)
         user_lists_ui = lists_window.Ui_Dialog()
         user_lists_ui.setupUi(user_lists_window)
         # Connect buttonBox
         ui.pb_lists_view.clicked.connect(show_lists)
 
         # Window to show user collections
-        user_collections_window = QtGui.QDialog(parent=window)
+        user_collections_window = QtWidgets.QDialog(parent=window)
         user_collections_ui = collections_window.Ui_Dialog()
         user_collections_ui.setupUi(user_collections_window)
         # Connect buttonBox
