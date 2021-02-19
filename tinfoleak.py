@@ -61,6 +61,8 @@ import json
 import oauth2 as oauth
 import operator
 import random
+import traceback
+
 
 from PyQt5 import QtGui, QtCore, QtWidgets
 import main_window
@@ -144,7 +146,7 @@ class User:
             self.protected = ""
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_user_information(self, api):
@@ -218,7 +220,7 @@ class User:
             self.lang = str(api.lang)
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -244,7 +246,7 @@ class Sources:
             self.sources_lasttweet = {}
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_sources_information(self, tweet):
@@ -271,7 +273,7 @@ class Sources:
                 self.sources_lasttweet[tweet.source] = tweet.id
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_global_information(self):
@@ -283,7 +285,7 @@ class Sources:
                 )
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -428,7 +430,7 @@ class Lists:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def get_ownerships(self, client, screen_name):
@@ -539,7 +541,7 @@ class Lists:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def get_lists(self, client, screen_name):
@@ -645,7 +647,7 @@ class Lists:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -755,7 +757,7 @@ class Collections:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -807,7 +809,7 @@ class Activity:
             self.activity_hours["23"] = 0
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_activity(self, tweet):
@@ -849,7 +851,7 @@ class Activity:
             self.activity_hours[str(tweet.created_at.time().strftime("%H"))] += 1
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_global_information(self):
@@ -869,7 +871,7 @@ class Activity:
             )
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -1013,7 +1015,7 @@ class Followers:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -1137,7 +1139,7 @@ class Friends:
             csvFile.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -1167,7 +1169,7 @@ class Social_Networks:
             self.see_again = 1
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def get_socialnetwork_userinfo(self, status, socialnetwork):
@@ -1873,7 +1875,7 @@ class Social_Networks:
             return username, link, pic, name, info
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_social_networks(self, status):
@@ -2239,7 +2241,7 @@ class Social_Networks:
                                                         ][11][4] = info
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -2308,7 +2310,7 @@ class Geolocation:
             self.toploc = []
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_geolocation_information(self, tweet):
@@ -2470,7 +2472,7 @@ class Geolocation:
                 sinfo = ""
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_geofile_information(self, tweet, user):
@@ -2524,7 +2526,7 @@ class Geolocation:
                 self.kml_info.append([geo, content, photo, place, date, time])
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def generates_geofile(self, geofile, parameters):
@@ -2581,7 +2583,7 @@ class Geolocation:
             f.close()
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_global_information(self, top):
@@ -2734,7 +2736,7 @@ class Geolocation:
                 )
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -2763,7 +2765,7 @@ class Search_GeoTweets:
             self.adv_media_count = 0  # total images
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_search_information(
@@ -3084,7 +3086,7 @@ class Search_GeoTweets:
             return results
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_geolocation_information(
@@ -3398,7 +3400,7 @@ class Search_GeoTweets:
             return results
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -3429,7 +3431,7 @@ class Hashtags:
             self.hashtags_users = {}
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_hashtags_information(self, tweet, from_username):
@@ -3530,7 +3532,7 @@ class Hashtags:
                         self.hashtags_owner[upper] = screen_name
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_global_information(self):
@@ -3546,7 +3548,7 @@ class Hashtags:
             self.hashtags_results3 = len(self.hashtags_top)
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -3576,7 +3578,7 @@ class Mentions:
             self.mentions_profileimg = {}
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_mentions_information(self, tweet, from_username):
@@ -3600,53 +3602,49 @@ class Mentions:
 
                 for i in tweet.entities["user_mentions"]:
                     if i["screen_name"].encode("utf-8"):
-                        tmp = tmp + "@" + i["screen_name"].encode("utf-8") + " "
+                        tmp = tmp + "@" + i["screen_name"] + " "
                         self.mentions_list.append(i["screen_name"])
 
                     if i["screen_name"].encode("utf-8").upper() in (
                         name.upper() for name in self.mentions_rt
                     ):
                         self.mentions_rt[
-                            i["screen_name"].encode("utf-8").upper()
+                            i["screen_name"].upper()
                         ] += tweet.retweet_count
                     else:
                         self.mentions_rt[
-                            i["screen_name"].encode("utf-8").upper()
+                            i["screen_name"].upper()
                         ] = tweet.retweet_count
 
-                    if i["screen_name"].encode("utf-8").upper() in (
+                    if i["screen_name"].upper() in (
                         name.upper() for name in self.mentions_fv
                     ):
                         self.mentions_fv[
-                            i["screen_name"].encode("utf-8").upper()
+                            i["screen_name"].upper()
                         ] += fav_count
                     else:
                         self.mentions_fv[
-                            i["screen_name"].encode("utf-8").upper()
+                            i["screen_name"].upper()
                         ] = fav_count
 
                 screen_name = ""
                 if len(tmp):
                     if hasattr(tweet, "retweeted_status"):
-                        screen_name = tweet.retweeted_status.author.screen_name.encode(
-                            "utf-8"
-                        )
+                        screen_name = tweet.retweeted_status.author.screen_name
                         profile_image_url = (
                             tweet.retweeted_status.author.profile_image_url.replace(
                                 "_normal.", "."
                             )
                         )
                         # profile_image_url = tweet.retweeted_status.author.profile_image_url
-                        location = tweet.retweeted_status.author.location.encode(
-                            "utf-8"
-                        )
+                        location = tweet.retweeted_status.author.location
                     else:
-                        screen_name = tweet.user.screen_name.encode("utf-8")
+                        screen_name = tweet.user.screen_name
                         profile_image_url = tweet.user.profile_image_url.replace(
                             "_normal.", "."
                         )
                         # profile_image_url = tweet.user.profile_image_url
-                        location = tweet.user.location.encode("utf-8")
+                        location = tweet.user.location
 
                     self.mentions_tweet.append(
                         [
@@ -3672,8 +3670,8 @@ class Mentions:
                     self.mentions_users[screen_name] = self.mentions_list
 
                 for m in tweet.entities["user_mentions"]:
-                    orig = m["screen_name"].encode("utf-8")
-                    upper = m["screen_name"].encode("utf-8").upper()
+                    orig = m["screen_name"]
+                    upper = m["screen_name"].upper()
                     if upper in (name.upper() for name in self.mentions):
                         self.mentions_count[upper] += 1
                         if tweet.created_at < self.mentions_firstdate[upper]:
@@ -3686,10 +3684,10 @@ class Mentions:
                         self.mentions_count[upper] = 1
                         self.mentions_firstdate[upper] = tweet.created_at
                         self.mentions_lastdate[upper] = tweet.created_at
-                        self.mentions_name[upper] = str(m["name"].encode("utf-8"))
+                        self.mentions_name[upper] = str(m["name"])
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_global_information(self):
@@ -3705,7 +3703,7 @@ class Mentions:
             self.mentions_results3 = len(self.mentions_top)
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -3721,7 +3719,7 @@ class User_Tweets:
             )  # [[text, date, time, ID, screen_name, profile_image_url, location, name], ...]
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_find_information(self, tweet):
@@ -3829,7 +3827,7 @@ class User_Tweets:
             )
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -3846,7 +3844,7 @@ class Words_Tweets:
             self.total_occurrences = 0
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_words_information(self, tweet):
@@ -5238,7 +5236,7 @@ class Words_Tweets:
                         self.top_dates[word] = [tweet.created_at, tweet.created_at]
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -5252,7 +5250,7 @@ class Favorites:
             self.favorites_tweets = []
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_favorites_information(self, api, username, total_favs):
@@ -5307,7 +5305,7 @@ class Favorites:
                         continue
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -5324,7 +5322,7 @@ class User_Conversations:
             self.processed_tweets = []
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def make_tweet_to_append(self, tweet, position):
@@ -5359,7 +5357,7 @@ class User_Conversations:
             return tweet_to_append
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_tweets_conversations(self, tweet):
@@ -5463,7 +5461,7 @@ class User_Relations:
             self.protected_tweets = []  # Tweets
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_relations(self, username):
@@ -5475,6 +5473,7 @@ class User_Relations:
             self.following_users = []  # Friends
             self.protected_tweets = []  # Tweets
             url = "https://mobile.twitter.com/search?f=tweets&q=to:" + username
+            print(f"url={url}")
 
             response = urllib.request.urlopen(url)
             html = response.read()
@@ -5678,7 +5677,7 @@ class User_Relations:
             show_ui_message("Relations: OK", "INFO", 1)
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -5723,7 +5722,7 @@ class User_Images:
             }
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_images_information(self, tweet):
@@ -5840,7 +5839,7 @@ class User_Images:
                 )
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
     # ----------------------------------------------------------------------
     def set_metadata_information(self, tweet):
@@ -6091,7 +6090,7 @@ class User_Images:
                     pass
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ==========================================================================
@@ -6111,7 +6110,7 @@ class Parameters:
             self.html_output_directory = "Output_Reports"
 
         except Exception as e:
-            show_ui_message(str(e) + "<br>", "ERROR", 1)
+            show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -6188,7 +6187,7 @@ def is_valid(tweet):
         return valid
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -6207,7 +6206,7 @@ def get_video_url(url):
         return video_url
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -6552,7 +6551,7 @@ def generates_HTML_file(
         f.close()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -6572,7 +6571,7 @@ def save_image(url, username):
             f.close()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -6669,7 +6668,7 @@ def get_information_for_user_target():
                 0, 2, QtWidgets.QTableWidgetItem("@" + user.screen_name)
             )
             ui.tbl_targets_analyzed.setItem(
-                0, 3, QtWidgets.QTableWidgetItem(user.name.decode("utf-8"))
+                0, 3, QtWidgets.QTableWidgetItem(user.name)
             )
             ui.tbl_targets_analyzed.resizeColumnsToContents()
             ui.tbl_targets_analyzed.setRowHeight(0, 60)
@@ -6830,7 +6829,7 @@ def get_information_for_user_target():
                     show_alert_field(
                         field=ui.tb_followers_number,
                         message="You need to specify a followers number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -6846,7 +6845,7 @@ def get_information_for_user_target():
                     show_alert_field(
                         field=ui.tb_friends_number,
                         message="You need to specify a friends number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -6860,7 +6859,7 @@ def get_information_for_user_target():
                     show_alert_field(
                         field=ui.tb_words_frequency_number,
                         message="You need to specify a words number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -6889,7 +6888,7 @@ def get_information_for_user_target():
                     show_alert_field(
                         field=ui.tb_top_locations,
                         message="You need to specify a locations number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -6927,7 +6926,7 @@ def get_information_for_user_target():
                     show_alert_field(
                         field=ui.tb_likes_number,
                         message="You need to specify a likes number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -6972,7 +6971,7 @@ def get_information_for_user_target():
         show_ui_message("Your HTML report: <b>" + html_dir + "</b><br>", "INFO", 1)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -7052,7 +7051,7 @@ def get_information_for_place():
                     show_alert_field(
                         field=ui.tb_words_frequency_number,
                         message="You need to specify a words number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -7101,7 +7100,7 @@ def get_information_for_place():
         show_ui_message("Your HTML report: <b>" + html_dir + "</b><br>", "INFO", 1)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -7173,7 +7172,7 @@ def get_information_for_timeline():
                     show_alert_field(
                         field=ui.tb_words_frequency_number,
                         message="You need to specify a words number",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -7222,7 +7221,7 @@ def get_information_for_timeline():
         show_ui_message("Your HTML report: <b>" + html_dir + "</b><br>", "INFO", 1)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -7236,7 +7235,7 @@ def get_information_from_interface():
                 show_alert_field(
                     field=ui.tb_username,
                     message="You need to specify a username",
-                    type="WARNING",
+                    type_="WARNING",
                     br=1,
                 )
             else:
@@ -7249,7 +7248,7 @@ def get_information_from_interface():
                     show_alert_field(
                         field=ui.tb_place_lat,
                         message="You need to specify a latitude",
-                        type="WARNING",
+                        type_="WARNING",
                         br=1,
                     )
                 else:
@@ -7257,7 +7256,7 @@ def get_information_from_interface():
                         show_alert_field(
                             field=ui.tb_place_lon,
                             message="You need to specify a longitude",
-                            type="WARNING",
+                            type_="WARNING",
                             br=1,
                         )
                     else:
@@ -7265,7 +7264,7 @@ def get_information_from_interface():
                             show_alert_field(
                                 field=ui.tb_place_km,
                                 message="You need to specify a distance",
-                                type="WARNING",
+                                type_="WARNING",
                                 br=1,
                             )
                         else:
@@ -7277,30 +7276,33 @@ def get_information_from_interface():
                     get_information_for_timeline()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
-def show_ui_message(message, type, br):
+def show_ui_message(exc_, type_, br):
     """ Show message in user interface"""
+    # print(exc_)
+    # cl, exc, tb = sys.exc_info()  #取得Call Stack
+    # print(traceback.format_exc())
+    message = str(exc_) + "<br>"
     try:
-
         app.processEvents()
         datenow = datetime.datetime.now().strftime("%Y-%m-%d")
         timenow = datetime.datetime.now().strftime("%H:%M:%S")
         ui.tb_messages.insertHtml("[ " + datenow + " " + timenow + " ] ")
 
         color = "black"
-        if type == "ERROR":
+        if type_ == "ERROR":
             color = "red"
         else:
-            if type == "INFO":
+            if type_ == "INFO":
                 color = "blue"
             else:
-                if type == "WARNING":
+                if type_ == "WARNING":
                     color = "orange"
 
-        ui.tb_messages.insertHtml("<font color=" + color + ">" + type + "</font> : ")
+        ui.tb_messages.insertHtml("<font color=" + color + ">" + type_ + "</font> : ")
         ui.tb_messages.insertHtml(message)
         if br:
             ui.tb_messages.insertHtml("<br>")
@@ -7311,24 +7313,22 @@ def show_ui_message(message, type, br):
         return datenow, timenow
 
     except Exception as e:
-        # show_ui_message(str(e) + "<br>", "ERROR", 1)
-        # REMOVEME
-        print(e)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
-def show_alert_field(field, message, type, br):
+def show_alert_field(field, message, type_, br):
     """ Show alert in form field """
     try:
 
         field.setStyleSheet("background-color: rgb(0, 0, 255);")
-        show_ui_message(message, type, br)
+        show_ui_message(message, type_, br)
         time.sleep(0.05)
         field.setStyleSheet("background-color: rgb(255, 255, 255);")
         field.setFocus()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -7348,7 +7348,7 @@ def show_error(error):
                 print("\t\t" + str(sys.exc_info()[1][0][0]["message"]))
                 if "Rate limit exceeded" in str(sys.exc_info()[1][0][0]["message"]):
                     rate_limit = 1
-        print()
+        print("")
 
         return rate_limit
 
@@ -7841,7 +7841,7 @@ def selectUser(table, checkbox_column, screen_name_column):
         return selection
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -7973,7 +7973,7 @@ def selectFile():
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 5,
-                                QtWidgets.QTableWidgetItem(tmp_user.name.decode("utf-8")),
+                                QtWidgets.QTableWidgetItem(tmp_user.name),
                             )
                             users_window_ui.tbl_users.setItem(
                                 row, 6, QtWidgets.QTableWidgetItem(str(tmp_user.protected))
@@ -8021,7 +8021,7 @@ def selectFile():
             w.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8032,7 +8032,7 @@ def selectLastFile():
             w.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8046,7 +8046,7 @@ def setKMLOutputFile():
             ui.tb_kml_filename.setText("tinfoleak.kml")
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8060,7 +8060,7 @@ def setHTMLOutputFile():
             ui.tb_report_filename.setText("tinfoleak.html")
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8127,7 +8127,7 @@ def enableOperations():
         ui.cb_social_networks.setChecked(boolChecked)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8150,7 +8150,7 @@ def setUnsetAllUsers(table, checkbox_all, column):
             rowPosition += 1
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8169,7 +8169,7 @@ def setUnsetUserRelations(table, relation_column, checkbox_relation):
             rowPosition += 1
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8181,7 +8181,7 @@ def selectUsersFile(lbl_file):
         lbl_file.setText(filename)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8198,7 +8198,7 @@ def showUserRelations():
         user_relations_window.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8231,7 +8231,7 @@ def get_icon_button_profile_image(tmp_user, tmp_window):
         return icon_button_profile_image
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8302,7 +8302,7 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
         return icon_button_relations_image, relation_code
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8322,7 +8322,7 @@ def get_checkbox_widget(checkbox_label):
         return cell_widget
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8429,7 +8429,7 @@ def show_relation_from_user_to_file(username, filename, table):
         f.close()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8635,7 +8635,7 @@ def show_lists():
         user_lists_window.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8704,7 +8704,7 @@ def show_collections():
         user_collections_window.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8779,7 +8779,7 @@ def show_followers():
             user_followers_window.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8853,7 +8853,7 @@ def show_friends():
             user_friends_window.show()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8874,7 +8874,7 @@ def selectTargetFromUserRelations():
             )
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8957,7 +8957,7 @@ def getUserRelations():
                 )
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 # ----------------------------------------------------------------------
@@ -8994,7 +8994,7 @@ def reset_filters():
         ui.rb_sourceapp_yes.setChecked(True)
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        show_ui_message(e, "ERROR", 1)
 
 
 ################################
@@ -9119,6 +9119,5 @@ if __name__ == "__main__":
         app.exec_()
 
     except Exception as e:
-        show_ui_message(str(e) + "<br>", "ERROR", 1)
-        # print(e)
-        # raise e
+        show_ui_message(e, "ERROR", 1)
+
