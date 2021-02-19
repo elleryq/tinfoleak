@@ -6547,7 +6547,7 @@ def generates_HTML_file(
         )
         if os.path.exists(output_report_filename):
             os.remove(output_report_filename)
-        f = open(output_report_filename, "w")
+        f = open(output_report_filename, "wb")
         f.write(html_content.encode("utf-8"))
         f.close()
 
@@ -6655,21 +6655,21 @@ def get_information_for_user_target():
         # Latest targets analyzed
         try:
             pixmap = QtGui.QPixmap(imgFile)
-            icon_button_profile_image = QtGui.QToolButton(parent=window)
+            icon_button_profile_image = QtWidgets.QToolButton(parent=window)
             icon_button_profile_image.setIcon(QtGui.QIcon(pixmap))
             icon_button_profile_image.setIconSize(QtCore.QSize(60, 60))
             icon_button_profile_image.setAutoRaise(True)
 
             ui.tbl_targets_analyzed.insertRow(0)
             ui.tbl_targets_analyzed.setItem(
-                0, 0, QtGui.QTableWidgetItem(datenow + " " + timenow)
+                0, 0, QtWidgets.QTableWidgetItem(datenow + " " + timenow)
             )
             ui.tbl_targets_analyzed.setCellWidget(0, 1, icon_button_profile_image)
             ui.tbl_targets_analyzed.setItem(
-                0, 2, QtGui.QTableWidgetItem("@" + user.screen_name)
+                0, 2, QtWidgets.QTableWidgetItem("@" + user.screen_name)
             )
             ui.tbl_targets_analyzed.setItem(
-                0, 3, QtGui.QTableWidgetItem(user.name.decode("utf-8"))
+                0, 3, QtWidgets.QTableWidgetItem(user.name.decode("utf-8"))
             )
             ui.tbl_targets_analyzed.resizeColumnsToContents()
             ui.tbl_targets_analyzed.setRowHeight(0, 60)
@@ -7826,7 +7826,7 @@ def selectUser(table, checkbox_column, screen_name_column):
             if table.cellWidget(rowPosition, checkbox_column):
                 if (
                     table.cellWidget(rowPosition, checkbox_column)
-                    .findChild(type(QtGui.QCheckBox()))
+                    .findChild(type(QtWidgets.QCheckBox()))
                     .isChecked()
                 ):
                     ui.tb_username.setText(
@@ -7854,7 +7854,7 @@ def selectFile():
         users_window_ui.tbl_users.setRowCount(0)
 
         # Select file
-        filename = QtGui.QFileDialog.getOpenFileName()
+        filename = QtWidgets.QFileDialog.getOpenFileName()
         if filename:
             users_window_ui.lb_file.setText(filename)
 
@@ -7876,7 +7876,7 @@ def selectFile():
                             tmp_user = api.get_user(line.strip("\n"))
                             rowPosition = users_window_ui.tbl_users.rowCount()
                             users_window_ui.tbl_users.setSizePolicy(
-                                QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                                QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                             )
                             users_window_ui.tbl_users.insertRow(rowPosition)
 
@@ -7906,7 +7906,7 @@ def selectFile():
                                 fd.close()
 
                             pixmap = QtGui.QPixmap(imgFile)
-                            icon_button_profile_image = QtGui.QToolButton(parent=w)
+                            icon_button_profile_image = QtWidgets.QToolButton(parent=w)
                             icon_button_profile_image.setIcon(QtGui.QIcon(pixmap))
                             icon_button_profile_image.setIconSize(
                                 QtCore.QSize(100, 100)
@@ -7934,7 +7934,7 @@ def selectFile():
                                 fd.close()
 
                             pixmap = QtGui.QPixmap(imgFile)
-                            icon_button_profile_background_image = QtGui.QToolButton(
+                            icon_button_profile_background_image = QtWidgets.QToolButton(
                                 parent=w
                             )
                             icon_button_profile_background_image.setIcon(
@@ -7945,11 +7945,11 @@ def selectFile():
                             )
                             icon_button_profile_background_image.setAutoRaise(True)
 
-                            checkbox = QtGui.QCheckBox()
+                            checkbox = QtWidgets.QCheckBox()
                             checkbox.setText("")
 
-                            cell_widget = QtGui.QWidget()
-                            layout_widget = QtGui.QHBoxLayout(cell_widget)
+                            cell_widget = QtWidgets.QWidget()
+                            layout_widget = QtWidgets.QHBoxLayout(cell_widget)
                             layout_widget.addWidget(checkbox)
                             layout_widget.setAlignment(QtCore.Qt.AlignCenter)
                             layout_widget.setContentsMargins(0, 0, 0, 0)
@@ -7963,37 +7963,37 @@ def selectFile():
                                 row, 2, icon_button_profile_background_image
                             )
                             users_window_ui.tbl_users.setItem(
-                                row, 3, QtGui.QTableWidgetItem(str(tmp_user.created_at))
+                                row, 3, QtWidgets.QTableWidgetItem(str(tmp_user.created_at))
                             )
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 4,
-                                QtGui.QTableWidgetItem("@" + tmp_user.screen_name),
+                                QtWidgets.QTableWidgetItem("@" + tmp_user.screen_name),
                             )
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 5,
-                                QtGui.QTableWidgetItem(tmp_user.name.decode("utf-8")),
+                                QtWidgets.QTableWidgetItem(tmp_user.name.decode("utf-8")),
                             )
                             users_window_ui.tbl_users.setItem(
-                                row, 6, QtGui.QTableWidgetItem(str(tmp_user.protected))
+                                row, 6, QtWidgets.QTableWidgetItem(str(tmp_user.protected))
                             )
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 7,
-                                QtGui.QTableWidgetItem(
+                                QtWidgets.QTableWidgetItem(
                                     str(tmp_user.description).decode("utf-8")
                                 ),
                             )
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 8,
-                                QtGui.QTableWidgetItem(str(tmp_user.followers_count)),
+                                QtWidgets.QTableWidgetItem(str(tmp_user.followers_count)),
                             )
                             users_window_ui.tbl_users.setItem(
                                 row,
                                 9,
-                                QtGui.QTableWidgetItem(str(tmp_user.friends_count)),
+                                QtWidgets.QTableWidgetItem(str(tmp_user.friends_count)),
                             )
                             users_window_ui.tbl_users.resizeColumnsToContents()
                             users_window_ui.tbl_users.setRowHeight(row, 100)
@@ -8140,12 +8140,12 @@ def setUnsetAllUsers(table, checkbox_all, column):
             if checkbox_all.isChecked():
                 # Select all users
                 table.cellWidget(rowPosition, column).findChild(
-                    type(QtGui.QCheckBox())
+                    type(QtWidgets.QCheckBox())
                 ).setChecked(True)
             else:
                 # Unselect all users
                 table.cellWidget(rowPosition, column).findChild(
-                    type(QtGui.QCheckBox())
+                    type(QtWidgets.QCheckBox())
                 ).setChecked(False)
             rowPosition += 1
 
@@ -8177,7 +8177,7 @@ def selectUsersFile(lbl_file):
     try:
 
         # Select file
-        filename = QtGui.QFileDialog.getOpenFileName()
+        filename = QtWidgets.QFileDialog.getOpenFileName()
         lbl_file.setText(filename)
 
     except Exception as e:
@@ -8223,7 +8223,7 @@ def get_icon_button_profile_image(tmp_user, tmp_window):
             fd.close()
 
         pixmap = QtGui.QPixmap(imgFile)
-        icon_button_profile_image = QtGui.QToolButton(parent=tmp_window)
+        icon_button_profile_image = QtWidgets.QToolButton(parent=tmp_window)
         icon_button_profile_image.setIcon(QtGui.QIcon(pixmap))
         icon_button_profile_image.setIconSize(QtCore.QSize(100, 100))
         icon_button_profile_image.setAutoRaise(True)
@@ -8252,7 +8252,7 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
         filename = "arrow-left.png"
         imgFile = img_directory + "/" + filename
         pixmap = QtGui.QPixmap(imgFile)
-        icon_button_arrow_left_image = QtGui.QToolButton(parent=tmp_window)
+        icon_button_arrow_left_image = QtWidgets.QToolButton(parent=tmp_window)
         icon_button_arrow_left_image.setIcon(QtGui.QIcon(pixmap))
         icon_button_arrow_left_image.setIconSize(QtCore.QSize(100, 100))
         icon_button_arrow_left_image.setAutoRaise(True)
@@ -8261,7 +8261,7 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
         filename = "arrow-right.png"
         imgFile = img_directory + "/" + filename
         pixmap = QtGui.QPixmap(imgFile)
-        icon_button_arrow_right_image = QtGui.QToolButton(parent=tmp_window)
+        icon_button_arrow_right_image = QtWidgets.QToolButton(parent=tmp_window)
         icon_button_arrow_right_image.setIcon(QtGui.QIcon(pixmap))
         icon_button_arrow_right_image.setIconSize(QtCore.QSize(100, 100))
         icon_button_arrow_right_image.setAutoRaise(True)
@@ -8270,7 +8270,7 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
         filename = "arrow-left-right.png"
         imgFile = img_directory + "/" + filename
         pixmap = QtGui.QPixmap(imgFile)
-        icon_button_arrow_left_right_image = QtGui.QToolButton(parent=tmp_window)
+        icon_button_arrow_left_right_image = QtWidgets.QToolButton(parent=tmp_window)
         icon_button_arrow_left_right_image.setIcon(QtGui.QIcon(pixmap))
         icon_button_arrow_left_right_image.setIconSize(QtCore.QSize(100, 100))
         icon_button_arrow_left_right_image.setAutoRaise(True)
@@ -8279,7 +8279,7 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
         filename = "no-relations.png"
         imgFile = img_directory + "/" + filename
         pixmap = QtGui.QPixmap(imgFile)
-        icon_button_no_relations_image = QtGui.QToolButton(parent=tmp_window)
+        icon_button_no_relations_image = QtWidgets.QToolButton(parent=tmp_window)
         icon_button_no_relations_image.setIcon(QtGui.QIcon(pixmap))
         icon_button_no_relations_image.setIconSize(QtCore.QSize(100, 100))
         icon_button_no_relations_image.setAutoRaise(True)
@@ -8309,11 +8309,11 @@ def get_icon_button_relations_image(user1, user2, tmp_window):
 def get_checkbox_widget(checkbox_label):
     try:
 
-        checkbox = QtGui.QCheckBox()
+        checkbox = QtWidgets.QCheckBox()
         checkbox.setText(checkbox_label)
 
-        cell_widget = QtGui.QWidget()
-        layout_widget = QtGui.QHBoxLayout(cell_widget)
+        cell_widget = QtWidgets.QWidget()
+        layout_widget = QtWidgets.QHBoxLayout(cell_widget)
         layout_widget.addWidget(checkbox)
         layout_widget.setAlignment(QtCore.Qt.AlignCenter)
         layout_widget.setContentsMargins(0, 0, 0, 0)
@@ -8353,7 +8353,7 @@ def show_relation_from_user_to_file(username, filename, table):
 
                             rowPosition = table.rowCount()
                             table.setSizePolicy(
-                                QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                                QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                             )
                             table.insertRow(rowPosition)
 
@@ -8383,12 +8383,12 @@ def show_relation_from_user_to_file(username, filename, table):
                             table.setItem(
                                 row,
                                 2,
-                                QtGui.QTableWidgetItem("@" + tmp_user1.screen_name),
+                                QtWidgets.QTableWidgetItem("@" + tmp_user1.screen_name),
                             )
                             table.setItem(
                                 row,
                                 3,
-                                QtGui.QTableWidgetItem(tmp_user1.name.decode("utf-8")),
+                                QtWidgets.QTableWidgetItem(tmp_user1.name.decode("utf-8")),
                             )
                             table.setCellWidget(row, 4, icon_button_relations_image)
                             table.setCellWidget(row, 5, cell_widget2)
@@ -8396,15 +8396,15 @@ def show_relation_from_user_to_file(username, filename, table):
                             table.setItem(
                                 row,
                                 7,
-                                QtGui.QTableWidgetItem("@" + tmp_user2.screen_name),
+                                QtWidgets.QTableWidgetItem("@" + tmp_user2.screen_name),
                             )
                             table.setItem(
                                 row,
                                 8,
-                                QtGui.QTableWidgetItem(tmp_user2.name.decode("utf-8")),
+                                QtWidgets.QTableWidgetItem(tmp_user2.name.decode("utf-8")),
                             )
                             table.setItem(
-                                row, 9, QtGui.QTableWidgetItem(str(relation_code))
+                                row, 9, QtWidgets.QTableWidgetItem(str(relation_code))
                             )
 
                             table.setRowHeight(row, 100)
@@ -8450,12 +8450,12 @@ def show_lists():
 
         user_lists_ui.tbl_header.insertRow(0)
         user_lists_ui.tbl_header.setSizePolicy(
-            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
         user_lists_ui.tbl_header.setCellWidget(0, 0, icon_button_profile_image_user)
-        user_lists_ui.tbl_header.setItem(0, 1, QtGui.QTableWidgetItem(screen_name))
+        user_lists_ui.tbl_header.setItem(0, 1, QtWidgets.QTableWidgetItem(screen_name))
         user_lists_ui.tbl_header.setItem(
-            0, 2, QtGui.QTableWidgetItem(tmp_user.description)
+            0, 2, QtWidgets.QTableWidgetItem(tmp_user.description)
         )
         user_lists_ui.tbl_header.setRowHeight(0, 100)
         user_lists_ui.tbl_header.resizeColumnsToContents()
@@ -8473,44 +8473,44 @@ def show_lists():
             if rowCount > 10:
                 rowPosition = user_lists_ui.tbl_subscribed.rowCount()
                 user_lists_ui.tbl_subscribed.setSizePolicy(
-                    QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                    QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                 )
                 user_lists_ui.tbl_subscribed.insertRow(rowPosition)
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 0, QtGui.QTableWidgetItem(str(row[1]))
+                    rowPosition, 0, QtWidgets.QTableWidgetItem(str(row[1]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 1, QtGui.QTableWidgetItem(str(row[2]).decode("utf-8"))
+                    rowPosition, 1, QtWidgets.QTableWidgetItem(str(row[2]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 2, QtGui.QTableWidgetItem(str(row[3]).decode("utf-8"))
+                    rowPosition, 2, QtWidgets.QTableWidgetItem(str(row[3]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 3, QtGui.QTableWidgetItem(str(row[4]))
+                    rowPosition, 3, QtWidgets.QTableWidgetItem(str(row[4]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 4, QtGui.QTableWidgetItem(str(row[5]))
+                    rowPosition, 4, QtWidgets.QTableWidgetItem(str(row[5]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 5, QtGui.QTableWidgetItem(str(row[6]))
+                    rowPosition, 5, QtWidgets.QTableWidgetItem(str(row[6]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 6, QtGui.QTableWidgetItem(str(row[7]))
+                    rowPosition, 6, QtWidgets.QTableWidgetItem(str(row[7]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 7, QtGui.QTableWidgetItem(str(row[8]))
+                    rowPosition, 7, QtWidgets.QTableWidgetItem(str(row[8]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 8, QtGui.QTableWidgetItem(str(row[9]).decode("utf-8"))
+                    rowPosition, 8, QtWidgets.QTableWidgetItem(str(row[9]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 9, QtGui.QTableWidgetItem(str(row[10]).decode("utf-8"))
+                    rowPosition, 9, QtWidgets.QTableWidgetItem(str(row[10]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 10, QtGui.QTableWidgetItem(str(row[11]))
+                    rowPosition, 10, QtWidgets.QTableWidgetItem(str(row[11]))
                 )
                 user_lists_ui.tbl_subscribed.setItem(
-                    rowPosition, 11, QtGui.QTableWidgetItem(str(row[12]))
+                    rowPosition, 11, QtWidgets.QTableWidgetItem(str(row[12]))
                 )
             rowCount += 1
 
@@ -8530,44 +8530,44 @@ def show_lists():
             if rowCount > 10:
                 rowPosition = user_lists_ui.tbl_ownership.rowCount()
                 user_lists_ui.tbl_ownership.setSizePolicy(
-                    QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                    QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                 )
                 user_lists_ui.tbl_ownership.insertRow(rowPosition)
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 0, QtGui.QTableWidgetItem(str(row[1]))
+                    rowPosition, 0, QtWidgets.QTableWidgetItem(str(row[1]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 1, QtGui.QTableWidgetItem(str(row[2]).decode("utf-8"))
+                    rowPosition, 1, QtWidgets.QTableWidgetItem(str(row[2]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 2, QtGui.QTableWidgetItem(str(row[3]).decode("utf-8"))
+                    rowPosition, 2, QtWidgets.QTableWidgetItem(str(row[3]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 3, QtGui.QTableWidgetItem(str(row[4]))
+                    rowPosition, 3, QtWidgets.QTableWidgetItem(str(row[4]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 4, QtGui.QTableWidgetItem(str(row[5]))
+                    rowPosition, 4, QtWidgets.QTableWidgetItem(str(row[5]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 5, QtGui.QTableWidgetItem(str(row[6]))
+                    rowPosition, 5, QtWidgets.QTableWidgetItem(str(row[6]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 6, QtGui.QTableWidgetItem(str(row[7]))
+                    rowPosition, 6, QtWidgets.QTableWidgetItem(str(row[7]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 7, QtGui.QTableWidgetItem(str(row[8]))
+                    rowPosition, 7, QtWidgets.QTableWidgetItem(str(row[8]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 8, QtGui.QTableWidgetItem(str(row[9]).decode("utf-8"))
+                    rowPosition, 8, QtWidgets.QTableWidgetItem(str(row[9]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 9, QtGui.QTableWidgetItem(str(row[10]).decode("utf-8"))
+                    rowPosition, 9, QtWidgets.QTableWidgetItem(str(row[10]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 10, QtGui.QTableWidgetItem(str(row[11]))
+                    rowPosition, 10, QtWidgets.QTableWidgetItem(str(row[11]))
                 )
                 user_lists_ui.tbl_ownership.setItem(
-                    rowPosition, 11, QtGui.QTableWidgetItem(str(row[12]))
+                    rowPosition, 11, QtWidgets.QTableWidgetItem(str(row[12]))
                 )
             rowCount += 1
 
@@ -8587,44 +8587,44 @@ def show_lists():
             if rowCount > 10:
                 rowPosition = user_lists_ui.tbl_membership.rowCount()
                 user_lists_ui.tbl_membership.setSizePolicy(
-                    QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                    QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                 )
                 user_lists_ui.tbl_membership.insertRow(rowPosition)
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 0, QtGui.QTableWidgetItem(str(row[1]))
+                    rowPosition, 0, QtWidgets.QTableWidgetItem(str(row[1]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 1, QtGui.QTableWidgetItem(str(row[2]).decode("utf-8"))
+                    rowPosition, 1, QtWidgets.QTableWidgetItem(str(row[2]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 2, QtGui.QTableWidgetItem(str(row[3]).decode("utf-8"))
+                    rowPosition, 2, QtWidgets.QTableWidgetItem(str(row[3]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 3, QtGui.QTableWidgetItem(str(row[4]))
+                    rowPosition, 3, QtWidgets.QTableWidgetItem(str(row[4]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 4, QtGui.QTableWidgetItem(str(row[5]))
+                    rowPosition, 4, QtWidgets.QTableWidgetItem(str(row[5]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 5, QtGui.QTableWidgetItem(str(row[6]))
+                    rowPosition, 5, QtWidgets.QTableWidgetItem(str(row[6]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 6, QtGui.QTableWidgetItem(str(row[7]))
+                    rowPosition, 6, QtWidgets.QTableWidgetItem(str(row[7]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 7, QtGui.QTableWidgetItem(str(row[8]))
+                    rowPosition, 7, QtWidgets.QTableWidgetItem(str(row[8]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 8, QtGui.QTableWidgetItem(str(row[9]).decode("utf-8"))
+                    rowPosition, 8, QtWidgets.QTableWidgetItem(str(row[9]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 9, QtGui.QTableWidgetItem(str(row[10]).decode("utf-8"))
+                    rowPosition, 9, QtWidgets.QTableWidgetItem(str(row[10]).decode("utf-8"))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 10, QtGui.QTableWidgetItem(str(row[11]))
+                    rowPosition, 10, QtWidgets.QTableWidgetItem(str(row[11]))
                 )
                 user_lists_ui.tbl_membership.setItem(
-                    rowPosition, 11, QtGui.QTableWidgetItem(str(row[12]))
+                    rowPosition, 11, QtWidgets.QTableWidgetItem(str(row[12]))
                 )
             rowCount += 1
 
@@ -8656,12 +8656,12 @@ def show_collections():
         # Header
         user_collections_ui.tbl_user.insertRow(0)
         user_collections_ui.tbl_user.setSizePolicy(
-            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
         user_collections_ui.tbl_user.setCellWidget(0, 0, icon_button_profile_image_user)
-        user_collections_ui.tbl_user.setItem(0, 1, QtGui.QTableWidgetItem(screen_name))
+        user_collections_ui.tbl_user.setItem(0, 1, QtWidgets.QTableWidgetItem(screen_name))
         user_collections_ui.tbl_user.setItem(
-            0, 2, QtGui.QTableWidgetItem(tmp_user.description)
+            0, 2, QtWidgets.QTableWidgetItem(tmp_user.description)
         )
         user_collections_ui.tbl_user.setRowHeight(0, 100)
         user_collections_ui.tbl_user.resizeColumnsToContents()
@@ -8679,20 +8679,20 @@ def show_collections():
             if rowCount > 10:
                 rowPosition = user_collections_ui.tbl_collections.rowCount()
                 user_collections_ui.tbl_collections.setSizePolicy(
-                    QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                    QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                 )
                 user_collections_ui.tbl_collections.insertRow(rowPosition)
                 user_collections_ui.tbl_collections.setItem(
-                    rowPosition, 0, QtGui.QTableWidgetItem(str(row[1]))
+                    rowPosition, 0, QtWidgets.QTableWidgetItem(str(row[1]))
                 )
                 user_collections_ui.tbl_collections.setItem(
-                    rowPosition, 1, QtGui.QTableWidgetItem(str(row[2]).decode("utf-8"))
+                    rowPosition, 1, QtWidgets.QTableWidgetItem(str(row[2]).decode("utf-8"))
                 )
                 user_collections_ui.tbl_collections.setItem(
-                    rowPosition, 2, QtGui.QTableWidgetItem(str(row[3]).decode("utf-8"))
+                    rowPosition, 2, QtWidgets.QTableWidgetItem(str(row[3]).decode("utf-8"))
                 )
                 user_collections_ui.tbl_collections.setItem(
-                    rowPosition, 3, QtGui.QTableWidgetItem(str(row[4]))
+                    rowPosition, 3, QtWidgets.QTableWidgetItem(str(row[4]))
                 )
 
             rowCount += 1
@@ -8724,12 +8724,12 @@ def show_followers():
 
         user_followers_ui.tbl_header.insertRow(0)
         user_followers_ui.tbl_header.setSizePolicy(
-            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
         user_followers_ui.tbl_header.setCellWidget(0, 0, icon_button_profile_image_user)
-        user_followers_ui.tbl_header.setItem(0, 1, QtGui.QTableWidgetItem(screen_name))
+        user_followers_ui.tbl_header.setItem(0, 1, QtWidgets.QTableWidgetItem(screen_name))
         user_followers_ui.tbl_header.setItem(
-            0, 2, QtGui.QTableWidgetItem(tmp_user.description)
+            0, 2, QtWidgets.QTableWidgetItem(tmp_user.description)
         )
         user_followers_ui.tbl_header.setRowHeight(0, 100)
         user_followers_ui.tbl_header.resizeColumnsToContents()
@@ -8759,7 +8759,7 @@ def show_followers():
                 if rowCount > 10:
                     rowPosition = user_followers_ui.tbl_followers.rowCount()
                     user_followers_ui.tbl_followers.setSizePolicy(
-                        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                        QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                     )
                     user_followers_ui.tbl_followers.insertRow(rowPosition)
                     n = 0
@@ -8767,7 +8767,7 @@ def show_followers():
                         user_followers_ui.tbl_followers.setItem(
                             rowPosition,
                             n,
-                            QtGui.QTableWidgetItem(str(row[n + 1]).decode("utf-8")),
+                            QtWidgets.QTableWidgetItem(str(row[n + 1]).decode("utf-8")),
                         )
                         n += 1
                 rowCount += 1
@@ -8798,12 +8798,12 @@ def show_friends():
 
         user_friends_ui.tbl_header.insertRow(0)
         user_friends_ui.tbl_header.setSizePolicy(
-            QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
         )
         user_friends_ui.tbl_header.setCellWidget(0, 0, icon_button_profile_image_user)
-        user_friends_ui.tbl_header.setItem(0, 1, QtGui.QTableWidgetItem(screen_name))
+        user_friends_ui.tbl_header.setItem(0, 1, QtWidgets.QTableWidgetItem(screen_name))
         user_friends_ui.tbl_header.setItem(
-            0, 2, QtGui.QTableWidgetItem(tmp_user.description)
+            0, 2, QtWidgets.QTableWidgetItem(tmp_user.description)
         )
         user_friends_ui.tbl_header.setRowHeight(0, 100)
         user_friends_ui.tbl_header.resizeColumnsToContents()
@@ -8833,7 +8833,7 @@ def show_friends():
                 if rowCount > 10:
                     rowPosition = user_friends_ui.tbl_friends.rowCount()
                     user_friends_ui.tbl_friends.setSizePolicy(
-                        QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
+                        QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
                     )
                     user_friends_ui.tbl_friends.insertRow(rowPosition)
                     n = 0
@@ -8841,7 +8841,7 @@ def show_friends():
                         user_friends_ui.tbl_friends.setItem(
                             rowPosition,
                             n,
-                            QtGui.QTableWidgetItem(str(row[n + 1]).decode("utf-8")),
+                            QtWidgets.QTableWidgetItem(str(row[n + 1]).decode("utf-8")),
                         )
                         n += 1
                 rowCount += 1
@@ -8934,19 +8934,19 @@ def getUserRelations():
             user_relations_ui.tbl_relations.setCellWidget(0, 0, cell_widget_user1)
             user_relations_ui.tbl_relations.setCellWidget(0, 5, cell_widget_user2)
             user_relations_ui.tbl_relations.setItem(
-                0, 2, QtGui.QTableWidgetItem("@" + tmp_user1.screen_name)
+                0, 2, QtWidgets.QTableWidgetItem("@" + tmp_user1.screen_name)
             )
             user_relations_ui.tbl_relations.setItem(
-                0, 3, QtGui.QTableWidgetItem(tmp_user1.name.decode("utf-8"))
+                0, 3, QtWidgets.QTableWidgetItem(tmp_user1.name.decode("utf-8"))
             )
             user_relations_ui.tbl_relations.setCellWidget(
                 0, 4, icon_button_relations_image
             )
             user_relations_ui.tbl_relations.setItem(
-                0, 7, QtGui.QTableWidgetItem("@" + tmp_user2.screen_name)
+                0, 7, QtWidgets.QTableWidgetItem("@" + tmp_user2.screen_name)
             )
             user_relations_ui.tbl_relations.setItem(
-                0, 8, QtGui.QTableWidgetItem(tmp_user2.name.decode("utf-8"))
+                0, 8, QtWidgets.QTableWidgetItem(tmp_user2.name.decode("utf-8"))
             )
             user_relations_ui.tbl_relations.resizeColumnsToContents()
 
@@ -9079,14 +9079,14 @@ if __name__ == "__main__":
         ui.pb_collections_view.clicked.connect(show_collections)
 
         # Window to show followers
-        user_followers_window = QtGui.QDialog(parent=window)
+        user_followers_window = QtWidgets.QDialog(parent=window)
         user_followers_ui = followers_window.Ui_Dialog()
         user_followers_ui.setupUi(user_followers_window)
         # Connect buttonBox
         ui.pb_followers_view.clicked.connect(show_followers)
 
         # Window to show friends
-        user_friends_window = QtGui.QDialog(parent=window)
+        user_friends_window = QtWidgets.QDialog(parent=window)
         user_friends_ui = friends_window.Ui_Dialog()
         user_friends_ui.setupUi(user_friends_window)
         # Connect buttonBox
@@ -9102,7 +9102,7 @@ if __name__ == "__main__":
         ui.pb_relations.clicked.connect(showUserRelations)
 
         # Connect buttonBox
-        btn = ui.buttonBox.button(QtGui.QDialogButtonBox.Apply)
+        btn = ui.buttonBox.button(QtWidgets.QDialogButtonBox.Apply)
         btn.clicked.connect(get_information_from_interface)
 
         # Connect checkbox : HTML output file
@@ -9119,6 +9119,6 @@ if __name__ == "__main__":
         app.exec_()
 
     except Exception as e:
-        # show_ui_message(str(e) + "<br>", "ERROR", 1)
-        print(e)
-        raise e
+        show_ui_message(str(e) + "<br>", "ERROR", 1)
+        # print(e)
+        # raise e
