@@ -1,0 +1,28 @@
+Source: tinfoleak
+Section: misc
+Priority: optional
+Maintainer: Kali Developers <devel@kali.org>
+Uploaders: Sophie Brun <sophie@freexian.com>
+Build-Depends: debhelper (>= 11), dh-python, python3-all
+Standards-Version: 4.2.1
+Homepage: http://www.vicenteaguileradiaz.com/tools/
+
+Package: tinfoleak
+Architecture: all
+Depends: python3-exif,
+         python3-jinja2,
+         python3-oauth2client,
+         python3-openssl,
+         python3-pil,
+         python3-pyqt5,
+         python3-tweepy,
+         ${misc:Depends},
+         ${python3:Depends}
+Description: Tool for Twitter intelligence analysis
+ This package contains an open-source tool within the OSINT (Open Source
+ Intelligence) and SOCMINT (Social Media Intelligence) disciplines, that
+ automates the extraction of information on Twitter and facilitates subsequent
+ analysis for the generation of intelligence. Taking a user identifier,
+ geographic coordinates or keywords, tinfoleak analyzes the Twitter
+ timeline to extract great volumes of data and show useful and structured
+ information to the intelligence analyst.

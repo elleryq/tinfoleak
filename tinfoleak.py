@@ -90,9 +90,19 @@ class Configuration:
 
             # Read tinfoleak configuration file ("tinfoleak.conf")
             config = configparser.RawConfigParser()
-            config_path = (
-                os.path.abspath(os.path.dirname(sys.argv[0])) + "/tinfoleak.conf"
+            config_file_list = (
+                os.path.abspath(os.path.expanduser('~')) + "/.tinfoleak.conf",
+                os.path.abspath(os.path.dirname(sys.argv[0])) + "/tinfoleak.conf",
+                "/etc/tinfoleak.conf"
             )
+            config_path = None
+            for config_file in config_file_list:
+                if os.path.exists(config_file):
+                    config_path = config_file
+                    break
+            if not config_path:
+                raise Exception("Need tinfoleak.conf")
+
             config.read(config_path)
 
             CONSUMER_KEY = config.get("Twitter OAuth", "CONSUMER_KEY")

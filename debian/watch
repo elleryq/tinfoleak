@@ -1,0 +1,4 @@
+version=4
+# upstream doesn't make tagged release for now
+opts="filenamemangle=s/.*\/v?(.*)\.tar\.gz/tinfoleak-$1.tar.gz/" \
+https://github.com/vaguileradiaz/tinfoleak/tags .*/v?(.*)\.tar\.gz

@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=tinfoleak
+
+%:
+	dh $@ --with python3
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod 644 debian/tinfoleak/usr/share/tinfoleak/ReportTemplate/tinfoleak-theme.html
+	chmod 644 debian/tinfoleak/etc/tinfoleak.conf

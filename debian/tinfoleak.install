@@ -1,0 +1,3 @@
+Output_Reports ReportTemplate UI *.py usr/share/tinfoleak/
+debian/helper-script/* /usr/bin/
+tinfoleak.conf.example etc/tinfoleak.conf
